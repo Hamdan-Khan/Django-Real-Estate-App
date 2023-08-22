@@ -24,7 +24,11 @@
               <h5>Description</h5>
               <hr>
               <p>
-                Welcome to my profile! I'm Hamdan Khan, your dedicated real estate professional based in Karachi. Whether you're looking to buy, sell, or rent a home, I'm here to guide you through the process and help you find the perfect property to match your needs and preferences.Welcome to my profile! I'm Hamdan Khan, your dedicated real estate professional based in Karachi. Whether you're looking to buy, sell, or rent a home, I'm here to guide you through the process and help you find the perfect property to match your needs and preferences.
+                {% if profile.description %}
+                  {{ profile.description }}  
+                {% else %}
+                  <small class="text-muted">No Description</small>
+                {% endif %}
               </p>
           </div>
         </div>

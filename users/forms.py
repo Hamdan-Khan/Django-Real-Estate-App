@@ -20,7 +20,7 @@ class ProfileChangeForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['contact_number', 'profile_pic',
-                  'first_name', 'last_name', 'city']
+                  'first_name', 'last_name', 'city', 'description']
 
 
 class AddPropertyForm(forms.ModelForm):
