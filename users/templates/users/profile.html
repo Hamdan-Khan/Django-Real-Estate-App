@@ -5,124 +5,98 @@
 {% block content %}
 
 <main>
-    {% comment %} <h1> {{ user }}'s Profile</h1>
-    <div>
-        <div class="">
-            <img src="{{ profile.profile_pic.url }}" alt="profile pic">
+  <div class="container py-2">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="{% if profile.profile_pic %}{{ profile.profile_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{ profile.user }}</h5>
+            <div class="d-flex justify-content-center mb-2">
+              <a type="button" class="btn btn-primary" href="{% url 'users:edit_profile' %}">Edit Profile</a>
+              <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+            </div>
+          </div>
         </div>
-    </div> {% endcomment %}
-        <div class="container py-2">
-
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="card mb-4">
-                <div class="card-body text-center">
-                  <img src="{% if profile.profile_pic %}{{ profile.profile_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}" alt="avatar"
-                    class="rounded-circle img-fluid" style="width: 150px;">
-                  <h5 class="my-3">{{ profile.user }}</h5>
-                  <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                  <div class="d-flex justify-content-center mb-2">
-                    <a type="button" class="btn btn-primary" href="{% url 'users:edit_profile' %}">Edit Profile</a>
-                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
-                  </div>
-                </div>
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body">
+              <h5>Description</h5>
+              <hr>
+              <p>
+                Welcome to my profile! I'm Hamdan Khan, your dedicated real estate professional based in Karachi. Whether you're looking to buy, sell, or rent a home, I'm here to guide you through the process and help you find the perfect property to match your needs and preferences.Welcome to my profile! I'm Hamdan Khan, your dedicated real estate professional based in Karachi. Whether you're looking to buy, sell, or rent a home, I'm here to guide you through the process and help you find the perfect property to match your needs and preferences.
+              </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Name</p>
               </div>
-              <div class="card mb-4 mb-lg-0">
-                <div class="card-body p-0">
-                  <ul class="list-group list-group-flush rounded-3">
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fas fa-globe fa-lg text-warning"></i>
-                      <p class="mb-0">https://mdbootstrap.com</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                      <p class="mb-0">mdbootstrap</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                      <p class="mb-0">@mdbootstrap</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                      <p class="mb-0">mdbootstrap</p>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                      <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                      <p class="mb-0">mdbootstrap</p>
-                    </li>
-                  </ul>
-                </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{% if profile.first_name or profile.last_name %}{{ profile.first_name }} {{ profile.last_name }}{% else %} - {% endif %}
+                  </p>
               </div>
             </div>
-            <div class="col-lg-8">
-              <div class="card mb-4">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Name</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">{% if profile.first_name or profile.last_name %}{{ profile.first_name }} {{ profile.last_name }}{% else %} - {% endif %}
-                        </p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Email</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">{% if c_user.email %}{{ c_user.email }}{% else %} - {% endif %}</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Phone</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">{% if profile.contact_number %}{{ profile.contact_number }}{% else %} - {% endif %}</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">City</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">{% if profile.city %}{{ profile.city }}{% else %} - {% endif %}</p>
-                    </div>
-                  </div>
-                </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
               </div>
-              <div class="card mb-4">
-                <div class="card-body">
-                  <h4>My Listings:</h4>
-                  <hr class="mb-4">
-                    {% for listing in listings  %}
-                      <div class="card mb-3" style="max-width: 900px;">
-                        <div class="row no-gutters">
-                          <div class="col-md-4">
-                            <img src="{% if listing.property_pic %}{{ listing.property_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}"  class="card-img img-fluid" style="object-fit: cover; height: 100%; max-height: 200px;" alt="">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <a href="{% url 'market:listing_data' listing.id %}" ><h5 class="card-title" style="text-decoration: none;">{{ listing.title }}</h5></a>
-                              <p class="card-text">{{ listing.location }}</p>
-                              <p class="card-text">Asking Price: <span class="text-muted">PKR. {{ listing.price }}</span></p>
-                              <p class="card-text">Size: <span class="text-muted">{{ listing.size }} {{ listing.size_unit }}</span></p>
-                              <div ><small class="text-muted">Added on: {{ listing.added_at }}</small></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    {% endfor %}
-                </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{% if c_user.email %}{{ c_user.email }}{% else %} - {% endif %}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{% if profile.contact_number %}{{ profile.contact_number }}{% else %} - {% endif %}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">City</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{% if profile.city %}{{ profile.city }}{% else %} - {% endif %}</p>
               </div>
             </div>
           </div>
         </div>
-
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4>My Listings:</h4>
+            <hr class="mb-4">
+              {% for listing in listings  %}
+                <div class="card mb-3" style="max-width: 900px;">
+                  <div class="row no-gutters">
+                    <div class="col-md-4">
+                      <img src="{% if listing.property_pic %}{{ listing.property_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}"  class="card-img img-fluid" style="object-fit: cover; height: 100%; max-height: 200px;" alt="">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <a href="{% url 'market:listing_data' listing.id %}" ><h5 class="card-title" style="text-decoration: none;">{{ listing.title }}</h5></a>
+                        <p class="card-text">{{ listing.location }}</p>
+                        <p class="card-text">Asking Price: <span class="text-muted">PKR. {{ listing.price }}</span></p>
+                        <p class="card-text">Size: <span class="text-muted">{{ listing.size }} {{ listing.size_unit }}</span></p>
+                        <div ><small class="text-muted">Added on: {{ listing.added_at }}</small></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 {% endblock %}

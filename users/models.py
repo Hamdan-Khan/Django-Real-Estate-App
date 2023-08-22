@@ -31,6 +31,7 @@ class Profile(models.Model):
     contact_number = models.CharField(max_length=20, blank=True,)
     city = models.CharField(max_length=100, blank=True, null=True)
     profile_pic = models.ImageField(upload_to=profile_pic_path, blank=True,)
+    description = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
