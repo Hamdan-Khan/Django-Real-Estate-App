@@ -1,0 +1,18 @@
+{% extends 'market/base.html' %}
+
+{% block title %} Add Property for Listing {% endblock %}
+
+{%block content %}
+
+<div>
+    <h1>Add Property for Listing</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary" >Add Property</button>
+    </form>
+    <hr>
+</div>
+
+{% endblock %}

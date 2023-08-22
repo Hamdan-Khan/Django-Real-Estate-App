@@ -1,0 +1,46 @@
+{% extends 'market/base.html' %}
+
+{% block title %}Buy Properties | Marketplace{% endblock %}
+
+{% block content %}
+
+<section class="container mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="display-4">Buy Properties</h1>
+      <p class="lead">Find the exclusively best Properties to buy in your budget!</p>
+    </div>
+    <hr>
+    <div>
+      <h2 class="mb-2">Available Properties to buy:</h2>
+      <p class="text-muted mb-4">{{ quantity }} {{property_noun}} for Sale.</p>
+      <hr class="mb-4">
+      {% if listings %}
+        <div>
+            {% for i in listings %}
+                <div class="card mb-3" style="max-width: 900px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                    <img src="{% if i.property_pic %}{{ i.property_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}"  class="card-img img-fluid" style="object-fit: cover; height: 100%; max-height: 200px;" alt="">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <a href="{% url 'market:listing_data' i.id %}">
+                        <h5 class="card-title">{{ i.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ i.location }}</p>
+                        <p class="card-text">Asking Price: <span class="text-muted">PKR. {{ i.price }}</span></p>
+                        <div ><small class="text-muted">Added on: {{ i.added_at }}</small></div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            
+            {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+

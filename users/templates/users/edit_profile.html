@@ -1,0 +1,20 @@
+{% extends 'market/base.html' %}
+
+{% block title %} Edit Profile {% endblock %}
+
+{%block content %}
+
+<div>
+    <h1>Edit Profile</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+        {{ form1.as_p }}
+        {{ form2.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary" >Save Edits</button>
+    </form>
+    <hr>
+
+</div>
+
+{% endblock %}
