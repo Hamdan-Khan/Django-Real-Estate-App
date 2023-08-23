@@ -1,7 +1,7 @@
 from .models import CustomUser, Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from market.models import Property, Location
+from market.models import Property
 
 
 class RegistrationForm(UserCreationForm):

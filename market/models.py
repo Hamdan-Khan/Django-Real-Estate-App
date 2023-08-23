@@ -40,12 +40,6 @@ class City(models.Model):
         return self.name
 
 
-class Location(models.Model):
-
-    def __str__(self):
-        return f"{self.province}, {self.city}, {self.area}."
-
-
 class Property(models.Model):
     UNIT_CHOICES = [
         ("Square feet", "sq.ft"),
