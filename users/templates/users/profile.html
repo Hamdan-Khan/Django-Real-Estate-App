@@ -76,7 +76,10 @@
         </div>
         <div class="card mb-4">
           <div class="card-body">
-            <h4>My Listings:</h4>
+            <div style="display: flex; justify-content: space-between;">
+              <h4>My Listings:</h4>
+              <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View Listings</a>
+            </div>
             <hr class="mb-4">
               {% for listing in listings  %}
                 <div class="card mb-3" style="max-width: 900px;">

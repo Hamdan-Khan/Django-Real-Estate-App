@@ -10,12 +10,6 @@ class RegistrationForm(UserCreationForm):
         fields = ['username', 'email', 'gender', 'password1', 'password2']
 
 
-# class CustomUserChangeForm(UserChangeForm):
-#     class Meta:
-#         model = CustomUser
-#         fields = ['email',]
-
-
 class ProfileChangeForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -26,4 +20,4 @@ class ProfileChangeForm(forms.ModelForm):
 class AddPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ["added_at",]
+        exclude = ["added_at", "owner"]

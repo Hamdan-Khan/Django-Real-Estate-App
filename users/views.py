@@ -5,7 +5,6 @@ from .forms import *
 from .models import Profile
 from market.models import Property
 from django.contrib.auth.decorators import login_required
-import os
 
 
 def RegisterView(request):
@@ -43,26 +42,19 @@ def ProfileView(request):
 
 @login_required
 def EditProfileView(request):
-    user_instance = CustomUser.objects.get(id=request.user.id)
+    # user_instance = CustomUser.objects.get(id=request.user.id)
     profile_instance = Profile.objects.get(id=request.user.id)
 
     if request.method == 'POST':
-        # user_form = CustomUserChangeForm(request.POST, instance=user_instance)
         profile_form = ProfileChangeForm(
             request.POST, request.FILES, instance=profile_instance)
         if profile_form.is_valid():
-            if 'profile_pic-clear' in request.POST and request.POST['profile_pic-clear'] == 'on':
-                print("---------------\n PROFILE PIC DELETED \n------------------")
-
             profile_form.save()
             return redirect("users:profile")
     else:
-        # user_form = CustomUserChangeForm(instance=user_instance)
         profile_form = ProfileChangeForm(instance=profile_instance)
 
-    return render(request, "users/edit_profile.html", {'form2': profile_form,
-                                                       # 'form1': user_form
-                                                       })
+    return render(request, "users/edit_profile.html", {'form2': profile_form, })
 
 
 @login_required
@@ -77,7 +69,9 @@ def AddPropertyView(request):
     if request.method == 'POST':
         form = AddPropertyForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            property_obj = form.save(commit=False)
+            property_obj.owner = request.user
+            property_obj.save()
             return redirect("users:my_listings")
     else:
         form = AddPropertyForm()
