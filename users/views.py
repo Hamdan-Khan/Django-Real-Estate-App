@@ -5,6 +5,7 @@ from .forms import *
 from .models import Profile
 from market.models import Property
 from django.contrib.auth.decorators import login_required
+import os
 
 
 def RegisterView(request):
@@ -49,10 +50,11 @@ def EditProfileView(request):
         # user_form = CustomUserChangeForm(request.POST, instance=user_instance)
         profile_form = ProfileChangeForm(
             request.POST, request.FILES, instance=profile_instance)
-        # if profile_form.is_valid() and user_form.is_valid():
         if profile_form.is_valid():
+            if 'profile_pic-clear' in request.POST and request.POST['profile_pic-clear'] == 'on':
+                print("---------------\n PROFILE PIC DELETED \n------------------")
+
             profile_form.save()
-            # user_form.save()
             return redirect("users:profile")
     else:
         # user_form = CustomUserChangeForm(instance=user_instance)
@@ -78,7 +80,6 @@ def AddPropertyView(request):
             form.save()
             return redirect("users:my_listings")
     else:
-        # user_form = CustomUserChangeForm(instance=user_instance)
         form = AddPropertyForm()
     return render(request, 'users/add_property_form.html', {'form': form})
 
