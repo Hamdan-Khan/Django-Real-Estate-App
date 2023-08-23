@@ -10,7 +10,9 @@
     <form method="post" enctype="multipart/form-data">
         {{ form.as_p }}
         {% csrf_token %}
-        <button type="submit" class="btn btn-secondary" >Add Property</button>
+        <button type="submit" class="btn btn-success" >
+            {% if edit_mode %}Save Edits{% else %}Add Property{% endif %}
+        </button>
     </form>
     <hr>
 </div>

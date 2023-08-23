@@ -25,9 +25,9 @@
     </div>
   </div>
   {% if isOwner %}
-    <button class="btn btn-warning">Edit Property</button>
+    <a href="{% url 'users:edit_listing' listing.id %}" class="btn btn-warning">Edit Property</a>
   {% else %}
-    <button class="btn btn-success">{{ type }} Property</button>
+    <a href="#" class="btn btn-success">{{ type }} Property</a>
   {% endif %}
 </section>
 {% endblock %}

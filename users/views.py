@@ -78,6 +78,20 @@ def AddPropertyView(request):
     return render(request, 'users/add_property_form.html', {'form': form})
 
 
+@login_required
+def EditPropertyView(request, listing_id):
+    property_instance = Property.objects.get(id=listing_id)
+    if request.method == 'POST':
+        form = AddPropertyForm(request.POST, request.FILES,
+                               instance=property_instance)
+        if form.is_valid():
+            form.save()
+            return redirect("market:listing_data", listing_id)
+    else:
+        form = AddPropertyForm(instance=property_instance)
+    return render(request, 'users/add_property_form.html', {'form': form, 'edit_mode': True})
+
+
 def LogoutView(request):
     logout(request)
     return redirect("market:listing")
