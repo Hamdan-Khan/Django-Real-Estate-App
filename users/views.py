@@ -32,10 +32,10 @@ def LoginView(request):
 
 @login_required
 def ProfileView(request):
-    profile = Profile.objects.get(id=request.user.id)
-    custom_user = CustomUser.objects.get(id=request.user.id)
+    custom_user = request.user
+    profile = custom_user.profile
 
-    listings = Property.objects.filter(owner=request.user)
+    listings = Property.objects.filter(owner=custom_user)
 
     return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
 
@@ -43,7 +43,7 @@ def ProfileView(request):
 @login_required
 def EditProfileView(request):
     # user_instance = CustomUser.objects.get(id=request.user.id)
-    profile_instance = Profile.objects.get(id=request.user.id)
+    profile_instance = request.user.profile
 
     if request.method == 'POST':
         profile_form = ProfileChangeForm(

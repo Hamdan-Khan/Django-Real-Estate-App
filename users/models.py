@@ -29,7 +29,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     contact_number = models.CharField(max_length=20, blank=True,)
-    city = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True)
     profile_pic = models.ImageField(upload_to=profile_pic_path, blank=True,)
     description = models.CharField(max_length=500, null=True, blank=True)
 

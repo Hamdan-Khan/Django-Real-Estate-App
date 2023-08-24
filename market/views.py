@@ -14,7 +14,7 @@ def TypesListingsView(request, property_type):
     property_type_instance = get_object_or_404(
         PropertyType, name=property_type)
 
-    # Now query the Property model using the retrieved instance
+    # query the Property model using the retrieved instance
     listings = Property.objects.filter(type=property_type_instance)
 
     quantity = listings.count()

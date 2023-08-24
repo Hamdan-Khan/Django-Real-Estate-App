@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'market',
+    'social',
     'django_cleanup.apps.CleanupConfig'
 ]
 

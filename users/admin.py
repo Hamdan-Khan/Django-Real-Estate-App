@@ -9,5 +9,10 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username', 'email')
 
 
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    search_fields = ('id',)
+
+
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Profile)
+admin.site.register(Profile, ProfileAdmin)
