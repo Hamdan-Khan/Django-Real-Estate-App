@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import *
+
+
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'sender', 'receiver', 'sent_at')
+    search_fields = ('id', 'sender',)
+
+
+admin.site.register(Message, MessageAdmin)

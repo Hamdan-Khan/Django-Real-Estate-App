@@ -27,7 +27,7 @@
   {% if isOwner %}
     <a href="{% url 'users:edit_listing' listing.id %}" class="btn btn-warning">Edit Property</a>
   {% else %}
-    <a href="#" class="btn btn-success">{{ type }} Property</a>
+    <a href="{% url 'market:listing_contact' listing.id %}" class="btn btn-success">{{ type }} Property</a>
   {% endif %}
 </section>
 {% endblock %}

@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Property, PropertyType
+from .forms import PropertyContactForm
 from django.shortcuts import get_object_or_404
 
 
@@ -38,6 +39,26 @@ def ListingDataView(request, listing_id):
         l_type = "Buy"
 
     return render(request, 'market/property_data.html', {'listing': listing, 'title': listing_title, 'type': l_type, 'isOwner': is_owner})
+
+
+def ListingContactView(request, listing_id):
+    listing = Property.objects.get(id=listing_id)
+    listing_title = listing.title[0:30] + "..."
+
+    l_type = "Buy" if listing.sale_type == 'Sell' else "Rent"
+
+    if request.method == "POST":
+        form = PropertyContactForm(data=request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.receiver = listing.owner
+            message.save()
+            return redirect("market:listing_data", listing_id)
+    else:
+        form = PropertyContactForm()
+
+    return render(request, 'market/property_contact.html', {'listing': listing, 'title': listing_title, 'type': l_type, 'form': form})
 
 
 def BuyView(request):

@@ -1,0 +1,21 @@
+{% extends 'market/base.html' %}
+
+{% block title %} {{ title }} Contact form | Marketplace{% endblock %}
+
+{% block content %}
+<section class="container">
+  <div class="row">
+    <div>
+      <h1>{{ type }} Property</h1>
+      <div class="card mb-3 p-4" style="max-width: 900px;">
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</section>
+{% endblock %}
