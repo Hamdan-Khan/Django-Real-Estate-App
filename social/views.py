@@ -8,12 +8,15 @@ from users.models import Profile
 @login_required
 def InboxView(request):
     # retrieves only those msgs in which request.user is present either as sender or receiver
-    msgs = Message.objects.filter(
-        Q(sender=request.user) | Q(receiver=request.user))
+    # msgs = Message.objects.filter(
+    #     Q(sender=request.user) | Q(receiver=request.user))
+    msgs = Message.objects.filter(receiver=request.user).order_by("-sent_at")
 
     # makes a list of distinct users with which the request.user has interacted through msgs
-    all_users = list(set([i.sender for i in msgs] +
-                     [i.receiver for i in msgs]))
+    # all_users = list(set([i.sender for i in msgs] +
+    #                  [i.receiver for i in msgs]))
+    all_users = [i.sender for i in msgs]
+
     print(all_users)
 
     profiles = [i.profile for i in all_users]
@@ -27,13 +30,12 @@ def InboxView(request):
 
 @login_required
 def InboxDataView(request, msg_id):
-    # retrieves only those msgs in which request.user is present either as sender or receiver
-    msgs = Message.objects.filter(
-        Q(sender=request.user) | Q(receiver=request.user))
+    # retrieves only those msgs in which request.user is present as receiver
+    msgs = Message.objects.filter(receiver=request.user).order_by("-sent_at")
 
-    # makes a list of distinct users with which the request.user has interacted through msgs
-    all_users = list(set([i.sender for i in msgs] +
-                     [i.receiver for i in msgs]))
+    # makes a list of users that sent request.user msgs
+    all_users = [i.sender for i in msgs]
+
     print(all_users)
 
     msg_data = Message.objects.get(id=msg_id)

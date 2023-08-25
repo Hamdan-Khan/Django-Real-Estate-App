@@ -5,4 +5,4 @@ from social.models import Message
 class PropertyContactForm(forms.ModelForm):
     class Meta:
         model = Message
-        exclude = ["sent_at", "sender", "receiver"]
+        exclude = ["sent_at", "sender", "receiver", "property"]

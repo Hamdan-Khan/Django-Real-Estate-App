@@ -52,6 +52,7 @@ def ListingContactView(request, listing_id):
             message = form.save(commit=False)
             message.sender = request.user
             message.receiver = listing.owner
+            message.property = listing
             message.save()
             return redirect("market:listing_data", listing_id)
     else:

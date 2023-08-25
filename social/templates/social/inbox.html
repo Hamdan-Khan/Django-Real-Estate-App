@@ -4,13 +4,19 @@
 {% block title %} Inbox {% endblock %}
 {% block additional_css %}
     <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+    <style>
+        .msg_history span{
+            font-weight: 400;
+            color: rgb(87, 87, 87);
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
 
 <main>
     <div class="container">
-        <h3 class=" text-center">Messaging</h3>
+        <h3 class=" text-center">Inbox</h3>
         <div class="messaging">
             <div class="inbox_msg">
                 <div class="inbox_people">
@@ -21,29 +27,33 @@
                     </div>
                     <div class="inbox_chat">
                         {% for msg in msgs  %}
-                            <div class="chat_list {% if msg.id == msg_data.id %}active_chat{% endif %}">
-                                <a href="{% url 'social:inbox_data' msg.id %}">
+                            <a href="{% url 'social:inbox_data' msg.id %}">
+                                <div class="chat_list {% if msg.id == msg_data.id %}active_chat{% endif %}">
                                     <div class="chat_people">
                                         <div class="chat_img" style="border-radius: 50%;
                                         overflow: hidden;"> <img src="{% if msg.sender.profile.profile_pic %}{{ msg.sender.profile.profile_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}" alt="sunil"> </div>
                                         <div class="chat_ib">
                                             <h5>{{ msg.sender_name }}<span class="chat_date">{{msg.sent_at}}</span></h5>
-                                            <p>{{ msg.message_text }}</p>
+                                            <p>{{ msg.message_text|slice:":40"|default:'' }}{% if msg.message_text|length > 40 %}...{% endif %}</p>
                                         </div>
                                     </div>
-                                </a>
-                            </div>
+                                </div>
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="mesgs">
                     <div class="msg_history">
                         {% if msg_data %}
-                        <h5>Sender : {{msg_data.sender_name}}</h5>
-                        <h5>Sender Email : {{msg_data.sender_email}}</h5>
-                        <h5>Sender Number : {{msg_data.sender_number}}</h5>
+                            <a href="{% url 'market:listing_data' msg_data.property.id %}">
+                                <h4 style="text-decoration: underline;">{{ msg_data.property }}</h4>
+                            </a>
+                            <h5>Sender : <span>{{msg_data.sender_name}}</span></h5>
+                            <h5>Sender Email : <span>{{msg_data.sender_email}}</span></h5>
+                            <h5>Sender Number : <span>{{msg_data.sender_number}}</span></h5>
+                            <h5>Message : <span>{{msg_data.message_text}}</span> </h5>
                         {% else %}
-                        <h3>Tap on any conversation to view it.</h3>
+                            <h3>Tap on any conversation to view it.</h3>
                         {% endif %}
                     </div>
                 </div>
