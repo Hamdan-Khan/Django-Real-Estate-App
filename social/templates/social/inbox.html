@@ -16,29 +16,39 @@
 
 <main>
     <div class="container">
-        <h3 class=" text-center">Inbox</h3>
+        <h3 class=" text-center">Inbox - {% if is_sent %}Sent{% else %}Received{% endif %}
+        </h3>
         <div class="messaging">
             <div class="inbox_msg">
                 <div class="inbox_people">
                     <div class="headind_srch">
                         <div class="recent_heading">
-                        <h4>Recent</h4>
+                            <h4>Recent</h4>
+                            {% if is_sent %}
+                                <a href="{% url 'social:inbox' %}">Received</a>
+                            {% else %}
+                                <a href="{% url 'social:inbox_sent_redirect' %}">Sent</a>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="inbox_chat">
                         {% for msg in msgs  %}
-                            <a href="{% url 'social:inbox_data' msg.id %}">
-                                <div class="chat_list {% if msg.id == msg_data.id %}active_chat{% endif %}">
-                                    <div class="chat_people">
-                                        <div class="chat_img" style="border-radius: 50%;
-                                        overflow: hidden;"> <img src="{% if msg.sender.profile.profile_pic %}{{ msg.sender.profile.profile_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}" alt="sunil"> </div>
-                                        <div class="chat_ib">
-                                            <h5>{{ msg.sender_name }}<span class="chat_date">{{msg.sent_at}}</span></h5>
-                                            <p>{{ msg.message_text|slice:":40"|default:'' }}{% if msg.message_text|length > 40 %}...{% endif %}</p>
+                            {% if is_sent %}    
+                                <a href="{% url 'social:inbox_sent' msg.id %}">
+                            {% else %}
+                                <a href="{% url 'social:inbox_received' msg.id %}">
+                            {% endif %}
+                                    <div class="chat_list {% if msg.id == msg_data.id %}active_chat{% endif %}">
+                                        <div class="chat_people">
+                                            <div class="chat_img" style="border-radius: 50%;
+                                            overflow: hidden;"> <img src="{% if msg.sender.profile.profile_pic %}{{ msg.sender.profile.profile_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}" alt="sunil"> </div>
+                                            <div class="chat_ib">
+                                                <h5>{{ msg.sender_name }}<span class="chat_date">{{msg.sent_at}}</span></h5>
+                                                <p>{{ msg.message_text|slice:":40"|default:'' }}{% if msg.message_text|length > 40 %}...{% endif %}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
                         {% endfor %}
                     </div>
                 </div>
@@ -52,8 +62,14 @@
                             <h5>Sender Email : <span>{{msg_data.sender_email}}</span></h5>
                             <h5>Sender Number : <span>{{msg_data.sender_number}}</span></h5>
                             <h5>Message : <span>{{msg_data.message_text}}</span> </h5>
+                        {% elif none_sent %}                            
+                            <h4>{{ none_sent_text }} <a href="{% url 'market:listing' %}">View Listings</a></h3>
                         {% else %}
-                            <h3>Tap on any conversation to view it.</h3>
+                            {% if msgs.count > 0 %}
+                                <h4>Tap on any conversation to view it.</h3>
+                            {% else %}    
+                                <h4>No messages received.</h3>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

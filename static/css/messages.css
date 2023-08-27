@@ -27,8 +27,9 @@ img {
 
 
 .recent_heading {
-    float: left;
-    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .srch_bar {
@@ -46,7 +47,6 @@ img {
 .recent_heading h4 {
     color: #05728f;
     font-size: 21px;
-    margin: auto;
 }
 
 .srch_bar input {

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q
 from .models import Message
 from django.contrib.auth.decorators import login_required
@@ -19,8 +19,6 @@ def InboxView(request):
 
     print(all_users)
 
-    profiles = [i.profile for i in all_users]
-    # all_users = [ {name:"abc",latest_msg:{text:"ok",date:"Jan"}} , {name:"abc",latest_msg:{text:"ok",date:"Jan"}} ]
     context = {
         'chats': all_users,
         'msgs': msgs,
@@ -29,7 +27,7 @@ def InboxView(request):
 
 
 @login_required
-def InboxDataView(request, msg_id):
+def InboxReceivedView(request, msg_id):
     # retrieves only those msgs in which request.user is present as receiver
     msgs = Message.objects.filter(receiver=request.user).order_by("-sent_at")
 
@@ -38,11 +36,50 @@ def InboxDataView(request, msg_id):
 
     print(all_users)
 
-    msg_data = Message.objects.get(id=msg_id)
+    msg_data = msgs.get(id=msg_id)
 
     context = {
         'chats': all_users,
         'msgs': msgs,
         'msg_data': msg_data
+    }
+    return render(request, 'social/inbox.html', context)
+
+
+@login_required
+def InboxSentRedirectView(request):
+    # retrieves only those msgs in which request.user is present as sender
+    msgs = Message.objects.filter(sender=request.user).order_by("-sent_at")
+
+    if msgs.count() > 0:
+        msg_id = msgs[0].id
+
+        return redirect('social:inbox_sent', msg_id)
+    else:
+        context = {
+            'is_sent': True,
+            'none_sent': True,
+            'none_sent_text': "Oops! It seems you have not sent any messages. You can visit the properties listed on our site and inquire owners about the property."
+        }
+        return render(request, 'social/inbox.html', context)
+
+
+@login_required
+def InboxSentView(request, msg_id):
+    # retrieves only those msgs in which request.user is present as sender
+    msgs = Message.objects.filter(sender=request.user).order_by("-sent_at")
+
+    # makes a list of users that received msgs from request.user
+    all_users = [i.receiver for i in msgs]
+
+    print(all_users)
+
+    msg_data = msgs.get(id=msg_id)
+
+    context = {
+        'chats': all_users,
+        'msgs': msgs,
+        'msg_data': msg_data,
+        'is_sent': True
     }
     return render(request, 'social/inbox.html', context)
