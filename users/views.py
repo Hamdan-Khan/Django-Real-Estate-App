@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from .forms import *
-from .models import Profile
-from market.models import Property
+from market.models import Property, PropertyImage
 from django.contrib.auth.decorators import login_required
 
 
@@ -60,6 +59,10 @@ def EditProfileView(request):
 @login_required
 def MyListingsView(request):
     listings = Property.objects.filter(owner=request.user)
+    for listing in listings:
+        all_images = listing.property_pics.all()
+        if all_images:
+            print([x.file.url for x in all_images])
     return render(request, "users/my_listings.html", {'listings': listings})
 
 
@@ -67,11 +70,17 @@ def MyListingsView(request):
 def AddPropertyView(request):
 
     if request.method == 'POST':
+        images = request.FILES.getlist('images')
         form = AddPropertyForm(request.POST, request.FILES)
         if form.is_valid():
             property_obj = form.save(commit=False)
             property_obj.owner = request.user
             property_obj.save()
+            for image in images:
+                PropertyImage.objects.create(
+                    property=property_obj,
+                    file=image
+                )
             return redirect("users:my_listings")
     else:
         form = AddPropertyForm()
@@ -99,4 +108,4 @@ def LogoutView(request):
 
 def DeleteView(request):
     request.user.delete()
-    return redirect("users:login")
+    return redirect("market:listing")

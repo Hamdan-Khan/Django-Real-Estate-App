@@ -1,6 +1,7 @@
 # models
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 # storage
 import os
@@ -77,10 +78,25 @@ class Property(models.Model):
         City, on_delete=models.CASCADE, related_name="property_city", null=True, blank=True)
     area = models.ForeignKey(
         Area, on_delete=models.CASCADE, related_name="area", null=True, blank=True)
-    property_pic = models.ImageField(
-        upload_to=property_pic_path, blank=True, null=True)
     added_at = models.DateTimeField(
         default=timezone.now, blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+
+def validate_file_size(value):
+    max_size = 50 * 1024 * 1024  # 50 MB
+
+    if value.size > max_size:
+        raise ValidationError(f"File size must not exceed {max_size} bytes.")
+
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(
+        Property, on_delete=models.CASCADE, related_name="property_pics")
+    file = models.FileField(blank=True, upload_to=property_pic_path, verbose_name="Files",
+                            validators=[validate_file_size], help_text="Allowed size is 50MB", null=True)
+
+    def __str__(self):
+        return f"Image of {self.property.title}"

@@ -10,5 +10,6 @@ class PropertyAdmin(admin.ModelAdmin):
 
 admin.site.register(Property, PropertyAdmin)
 admin.site.register(PropertyType)
+admin.site.register(PropertyImage)
 admin.site.register(Area)
 admin.site.register(City)
