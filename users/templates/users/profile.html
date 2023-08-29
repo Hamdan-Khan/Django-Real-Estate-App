@@ -85,7 +85,7 @@
                 <div class="card mb-3" style="max-width: 900px;">
                   <div class="row no-gutters">
                     <div class="col-md-4">
-                      <img src="{% if listing.property_pic %}{{ listing.property_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}"  class="card-img img-fluid" style="object-fit: cover; height: 100%; max-height: 200px;" alt="">
+                      <img src="{% if listing.property_pics.first.file %}{{ listing.property_pics.first.file.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}"  class="card-img img-fluid" style="object-fit: cover; height: 100%; max-height: 200px;" alt="">
                     </div>
                     <div class="col-md-8">
                       <div class="card-body">

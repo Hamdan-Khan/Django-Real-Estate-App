@@ -34,7 +34,9 @@ def ProfileView(request):
     custom_user = request.user
     profile = custom_user.profile
 
-    listings = Property.objects.filter(owner=custom_user)
+    listings = Property.objects.filter(owner=custom_user).order_by("-added_at")
+
+    listings = listings[:3]
 
     return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
 
@@ -58,7 +60,8 @@ def EditProfileView(request):
 
 @login_required
 def MyListingsView(request):
-    listings = Property.objects.filter(owner=request.user)
+    listings = Property.objects.filter(
+        owner=request.user).order_by("-added_at")
     for listing in listings:
         all_images = listing.property_pics.all()
         if all_images:

@@ -5,12 +5,13 @@ from django.shortcuts import get_object_or_404
 
 
 def ListingsView(request):
-    all_listings = Property.objects.all()
+    all_listings = Property.objects.all().order_by('-added_at')
     return render(request, 'market/home.html', {'listings': all_listings})
 
 
 def TypesListingsView(request, property_type):
     # Get the PropertyType instance based on the property_type string
+    property_type = property_type.capitalize()
     property_type_instance = get_object_or_404(
         PropertyType, name=property_type)
 
@@ -62,7 +63,7 @@ def ListingContactView(request, listing_id):
 
 
 def BuyView(request):
-    listings = Property.objects.filter(sale_type="Sell")
+    listings = Property.objects.filter(sale_type="Sell").order_by("-added_at")
     quantity = listings.count()
     property_noun = "Property"
     if (quantity > 1):
@@ -71,7 +72,7 @@ def BuyView(request):
 
 
 def RentView(request):
-    listings = Property.objects.filter(sale_type="Rent")
+    listings = Property.objects.filter(sale_type="Rent").order_by("-added_at")
     quantity = listings.count()
     property_noun = "Property"
     if (quantity > 1):
