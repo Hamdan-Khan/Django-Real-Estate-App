@@ -12,6 +12,8 @@ urlpatterns = [
     path("my_listings/add", views.AddPropertyView, name="add_listing"),
     path("my_listings/edit/<int:listing_id>",
          views.EditPropertyView, name="edit_listing"),
+    path("my_listings/delete/<int:listing_id>",
+         views.DeleteListingView, name="delete_listing"),
     path("logout/", views.LogoutView, name="logout"),
     path("delete_account/", views.DeleteView, name="delete_account"),
 ]

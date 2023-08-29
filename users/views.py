@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from .forms import *
@@ -102,6 +102,14 @@ def EditPropertyView(request, listing_id):
     else:
         form = AddPropertyForm(instance=property_instance)
     return render(request, 'users/add_property_form.html', {'form': form, 'edit_mode': True})
+
+
+@login_required
+def DeleteListingView(request, listing_id):
+    # Retrieve the listing to delete
+    listing = get_object_or_404(Property, id=listing_id)
+    listing.delete()  # Delete the listing
+    return redirect("users:my_listings")
 
 
 def LogoutView(request):
