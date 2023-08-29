@@ -1,6 +1,6 @@
 {% extends 'market/base.html' %}
 
-{% block title %} My Profile | Real Estate {% endblock %}
+{% block title %} {% if is_owner %} My {% else %} {{profile.user}}'s {% endif %} Profile | Real Estate {% endblock %}
 
 {% block content %}
 
@@ -14,8 +14,12 @@
               class="rounded-circle img-fluid" style="width: 150px;">
             <h5 class="my-3">{{ profile.user }}</h5>
             <div class="d-flex justify-content-center mb-2">
-              <a type="button" class="btn btn-primary" href="{% url 'users:edit_profile' %}">Edit Profile</a>
-              <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              {% if is_owner %}
+                <a type="button" class="btn btn-primary" href="{% url 'users:edit_profile' %}">Edit Profile</a>
+                <a type="button" class="btn btn-danger ms-1" href="{% url 'users:delete_confirmation' %}">Delete Profile</a>
+              {% else %}
+                <button type="button" class="btn btn-outline-primary">Contact</button>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -77,8 +81,13 @@
         <div class="card mb-4">
           <div class="card-body">
             <div style="display: flex; justify-content: space-between;">
-              <h4>My Listings:</h4>
-              <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View Listings</a>
+              {% if is_owner %}
+                <h4>My Listings:</h4>
+                <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View Listings</a>
+              {% else %}
+                <h4>{% if profile.first_name %}{{profile.first_name}}{% endif %}'s  Listings:</h4>
+                <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View Listings</a>
+              {% endif %}
             </div>
             <hr class="mb-4">
               {% for listing in listings  %}

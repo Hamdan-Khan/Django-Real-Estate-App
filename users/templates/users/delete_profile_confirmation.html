@@ -1,0 +1,23 @@
+{% extends 'market/base.html' %}
+
+{% block title %} Delete Account Confirmation | Real Estate {% endblock %}
+
+{% block content %}
+
+<main>
+    <h1>Delete Account</h1>
+    <hr/>
+    <h4>Are you sure you want to delete your account?</h4>
+    <p>This action is irreversible and will lead to the following consequences:</p>
+    <ul>
+        <li>Your profile information will be permanently removed.</li>
+        <li>You will lose access to your saved listings and preferences.</li>
+        <li>Your account history and interactions will be deleted.</li>
+    </ul>
+    <p><b>Note: </b>If you proceed, you won't be able to recover your account and data.</p>
+    <hr/>
+    <a href="{% url 'users:delete_account' %}" class="btn btn-danger">Delete Account</a>
+    <a href="{% url 'users:profile' %}" class="btn btn-outline-success ms-2">No, I have changed my mind</a>
+</main>
+
+{% endblock %}

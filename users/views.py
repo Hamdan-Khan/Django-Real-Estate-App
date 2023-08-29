@@ -29,6 +29,7 @@ def LoginView(request):
     return render(request, "users/login.html", {"form": form})
 
 
+# own profile view
 @login_required
 def ProfileView(request):
     custom_user = request.user
@@ -38,7 +39,9 @@ def ProfileView(request):
 
     listings = listings[:3]
 
-    return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
+    context = {'profile': profile, 'c_user': custom_user,
+               'listings': listings, 'is_owner': True}
+    return render(request, "users/profile.html", context)
 
 
 @login_required
@@ -106,10 +109,22 @@ def EditPropertyView(request, listing_id):
 
 @login_required
 def DeleteListingView(request, listing_id):
-    # Retrieve the listing to delete
+    # retrieves the listing to delete
     listing = get_object_or_404(Property, id=listing_id)
-    listing.delete()  # Delete the listing
+    listing.delete()
     return redirect("users:my_listings")
+
+
+# other users' profile view
+def OtherProfileView(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    custom_user = CustomUser.objects.get(profile=profile)
+
+    listings = Property.objects.filter(owner=custom_user).order_by("-added_at")
+
+    listings = listings[:3]
+
+    return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
 
 
 def LogoutView(request):
@@ -117,6 +132,12 @@ def LogoutView(request):
     return redirect("market:listing")
 
 
+@login_required
+def DeleteConfirmationView(request):
+    return render(request, "users/delete_profile_confirmation.html")
+
+
+@login_required
 def DeleteView(request):
     request.user.delete()
     return redirect("market:listing")

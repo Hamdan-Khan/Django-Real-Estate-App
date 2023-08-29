@@ -95,7 +95,7 @@
       </div>
     </div>
     <div>
-      <p>Owner : <a href="">{{listing.owner.profile.first_name}} {{listing.owner.profile.last_name}}</a></p>
+      <p>Owner : <a href="{% url 'users:other_profile' listing.owner.profile.id %}">{{listing.owner.profile.first_name}} {{listing.owner.profile.last_name}} </a></p>
     </div>
     {% if isOwner %}
       <a href="{% url 'users:edit_listing' listing.id %}" class="btn btn-warning">Edit Property</a>
