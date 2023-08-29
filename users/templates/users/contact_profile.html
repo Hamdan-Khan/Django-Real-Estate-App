@@ -1,0 +1,16 @@
+{% extends 'market/base.html' %}
+
+{% block title %} Contact {{ profile.first_name}} | Real Estate {% endblock %}
+
+{% block content %}
+
+<main>
+    <h1>Contact {{profile.first_name}}</h1>
+    <hr/>
+    <form method="post">
+        <a role="button" type="submit" href="{% url 'users:other_profile' profile.id %}" class="btn btn-success">Send Message</a>
+    </form>
+    <hr/>
+</main>
+
+{% endblock %}

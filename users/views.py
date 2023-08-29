@@ -127,6 +127,13 @@ def OtherProfileView(request, profile_id):
     return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
 
 
+# contact through profile
+def ContactProfileView(request, profile_id):
+    profile = request.user.profile
+    context = {'profile': profile}
+    return render(request, 'users/contact_profile.html', context)
+
+
 def LogoutView(request):
     logout(request)
     return redirect("market:listing")

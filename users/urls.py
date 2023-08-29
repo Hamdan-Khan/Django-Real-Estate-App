@@ -15,8 +15,10 @@ urlpatterns = [
     path("my_listings/delete/<int:listing_id>",
          views.DeleteListingView, name="delete_listing"),
     path("<int:profile_id>/profile", views.OtherProfileView, name="other_profile"),
+    path("<int:profile_id>/profile/contact",
+         views.ContactProfileView, name="contact_profile"),
+    path("logout/", views.LogoutView, name="logout"),
     path("delete_account/confirmation",
          views.DeleteConfirmationView, name="delete_confirmation"),
-    path("logout/", views.LogoutView, name="logout"),
     path("delete_account/", views.DeleteView, name="delete_account"),
 ]
