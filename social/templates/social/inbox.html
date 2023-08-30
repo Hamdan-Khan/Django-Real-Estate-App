@@ -71,6 +71,9 @@
                             <h5>Sender Email : <span>{{msg_data.sender_email}}</span></h5>
                             <h5>Sender Number : <span>{{msg_data.sender_number}}</span></h5>
                             <h5>Message : <span>{{msg_data.message_text}}</span> </h5>
+                            {% if not is_sent %}
+                                <a class="btn btn-primary" href="{% url 'users:contact_profile' msg_data.sender.profile.id %}">Reply</a>
+                            {% endif %}
                         {% elif none_sent %}                            
                             <h4>{{ none_sent_text }} <a href="{% url 'market:listing' %}">View Listings</a></h3>
                         {% else %}
