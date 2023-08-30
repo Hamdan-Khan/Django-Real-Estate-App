@@ -65,10 +65,6 @@ def EditProfileView(request):
 def MyListingsView(request):
     listings = Property.objects.filter(
         owner=request.user).order_by("-added_at")
-    for listing in listings:
-        all_images = listing.property_pics.all()
-        if all_images:
-            print([x.file.url for x in all_images])
     return render(request, "users/my_listings.html", {'listings': listings})
 
 
@@ -117,20 +113,42 @@ def DeleteListingView(request, listing_id):
 
 # other users' profile view
 def OtherProfileView(request, profile_id):
-    profile = Profile.objects.get(id=profile_id)
-    custom_user = CustomUser.objects.get(profile=profile)
+    # logged in user will be redirected to his own profile
+    if request.user.profile.id == profile_id:
+        return redirect("users:profile")
+    else:
+        profile = Profile.objects.get(id=profile_id)
+        custom_user = CustomUser.objects.get(profile=profile)
 
-    listings = Property.objects.filter(owner=custom_user).order_by("-added_at")
+        listings = Property.objects.filter(
+            owner=custom_user).order_by("-added_at")
 
-    listings = listings[:3]
+        listings = listings[:3]
 
-    return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
+        return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
 
 
 # contact through profile
 def ContactProfileView(request, profile_id):
-    profile = request.user.profile
-    context = {'profile': profile}
+    receiver_profile = Profile.objects.get(id=profile_id)
+    listings = Property.objects.filter(owner=receiver_profile.user)
+
+    if request.method == "POST":
+        data = request.POST
+        form = ProfileContactForm(data)
+        print(data)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.receiver = receiver_profile.user
+            selected_listing = data['selected_listing']
+            if selected_listing != 'none':
+                message.property = listings.get(id=selected_listing)
+            message.save()
+            return redirect("users:other_profile", profile_id)
+    else:
+        form = ProfileContactForm()
+    context = {'profile': receiver_profile, 'form': form, 'listings': listings}
     return render(request, 'users/contact_profile.html', context)
 
 

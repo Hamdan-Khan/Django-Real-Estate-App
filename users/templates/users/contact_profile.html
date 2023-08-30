@@ -7,8 +7,19 @@
 <main>
     <h1>Contact {{profile.first_name}}</h1>
     <hr/>
-    <form method="post">
-        <a role="button" type="submit" href="{% url 'users:other_profile' profile.id %}" class="btn btn-success">Send Message</a>
+    <form method="post" class="card col-md-8 p-4">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="mb-2">Select a listing reference:</label>
+            <select name="selected_listing" class="form-control">
+                <option value='none'>I do not want to give listing reference</option>
+                {% for listing in listings %}
+                <option value='{{listing.id}}'>{{listing}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input role="button" type="submit" class="btn btn-success" value="Send Message">
     </form>
     <hr/>
 </main>
