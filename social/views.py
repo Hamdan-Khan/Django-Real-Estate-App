@@ -34,8 +34,6 @@ def InboxReceivedView(request, msg_id):
     # makes a list of users that sent request.user msgs
     all_users = [i.sender for i in msgs]
 
-    print(all_users)
-
     msg_data = msgs.get(id=msg_id)
 
     context = {

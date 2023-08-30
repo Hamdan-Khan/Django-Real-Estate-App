@@ -55,9 +55,13 @@
                 <div class="mesgs">
                     <div class="msg_history">
                         {% if msg_data %}
-                            <a href="{% url 'market:listing_data' msg_data.property.id %}">
-                                <h4 style="text-decoration: underline;">{{ msg_data.property }}</h4>
-                            </a>
+                            {% if msg_data.property %}
+                                <a href="{% url 'market:listing_data' msg_data.property.id %}">
+                                    <h4 style="text-decoration: underline;">{{ msg_data.property }}</h4>
+                                </a>
+                            {% else %}
+                                <h4 style="text-decoration: underline;">Direct Message</h4>    
+                            {% endif %}
                             {% if is_sent %}
                                 <h5>Receiver : 
                                     <span>{% if msg_data.receiver.profile.first_name %}{{msg_data.receiver.profile.first_name}}{% else %}{{msg_data.receiver}}{% endif %}</span>
