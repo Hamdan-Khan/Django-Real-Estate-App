@@ -136,7 +136,6 @@ def ContactProfileView(request, profile_id):
     if request.method == "POST":
         data = request.POST
         form = ProfileContactForm(data)
-        print(data)
         if form.is_valid():
             message = form.save(commit=False)
             message.sender = request.user

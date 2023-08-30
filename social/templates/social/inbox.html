@@ -58,6 +58,11 @@
                             <a href="{% url 'market:listing_data' msg_data.property.id %}">
                                 <h4 style="text-decoration: underline;">{{ msg_data.property }}</h4>
                             </a>
+                            {% if is_sent %}
+                                <h5>Receiver : 
+                                    <span>{% if msg_data.receiver.profile.first_name %}{{msg_data.receiver.profile.first_name}}{% else %}{{msg_data.receiver}}{% endif %}</span>
+                                </h5>
+                            {% endif %}
                             <h5>Sender : <span>{{msg_data.sender_name}}</span></h5>
                             <h5>Sender Email : <span>{{msg_data.sender_email}}</span></h5>
                             <h5>Sender Number : <span>{{msg_data.sender_number}}</span></h5>
