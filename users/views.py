@@ -65,7 +65,15 @@ def EditProfileView(request):
 def MyListingsView(request):
     listings = Property.objects.filter(
         owner=request.user).order_by("-added_at")
-    return render(request, "users/my_listings.html", {'listings': listings})
+    return render(request, "users/my_listings.html", {'listings': listings, 'my_listings': True})
+
+
+def OtherListingsView(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    owner = profile.user
+    listings = Property.objects.filter(
+        owner=owner).order_by("-added_at")
+    return render(request, "users/my_listings.html", {'listings': listings, 'profile': profile})
 
 
 @login_required
@@ -118,7 +126,7 @@ def OtherProfileView(request, profile_id):
         return redirect("users:profile")
     else:
         profile = Profile.objects.get(id=profile_id)
-        custom_user = CustomUser.objects.get(profile=profile)
+        custom_user = profile.user
 
         listings = Property.objects.filter(
             owner=custom_user).order_by("-added_at")

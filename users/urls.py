@@ -17,6 +17,8 @@ urlpatterns = [
     path("<int:profile_id>/profile", views.OtherProfileView, name="other_profile"),
     path("<int:profile_id>/profile/contact",
          views.ContactProfileView, name="contact_profile"),
+    path("<int:profile_id>/profile/listings",
+         views.OtherListingsView, name="other_profile_listings"),
     path("logout/", views.LogoutView, name="logout"),
     path("delete_account/confirmation",
          views.DeleteConfirmationView, name="delete_confirmation"),

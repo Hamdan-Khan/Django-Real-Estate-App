@@ -1,14 +1,16 @@
 {% extends 'market/base.html' %}
 
-{% block title %} My Listings | Real Estate {% endblock %}
+{% block title %} {% if my_listings %}My {% else %} {{ profile.first_name}}'s {% endif %} Listings | Real Estate {% endblock %}
 
 {% block content %}
 
 <main>
-    <h1>My Listings</h1>
+    <h1>{% if my_listings %}My {% else %} {{ profile.first_name}}'s {% endif %} Listings</h1>
     <hr >
     <section>
-        <a class="btn btn-primary" href="{% url 'users:add_listing' %}">Add new Listing</a>
+        {% if my_listings %}
+            <a class="btn btn-primary" href="{% url 'users:add_listing' %}">Add new Listing</a>
+        {% endif %}
         <div class="my-4">
             {% for listing in listings  %}
                 <div class="card mb-3" style="max-width: 900px;">

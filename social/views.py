@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.db.models import Q
 from .models import Message
 from django.contrib.auth.decorators import login_required
-from users.models import Profile
 
 
 @login_required
@@ -16,8 +14,6 @@ def InboxView(request):
     # all_users = list(set([i.sender for i in msgs] +
     #                  [i.receiver for i in msgs]))
     all_users = [i.sender for i in msgs]
-
-    print(all_users)
 
     context = {
         'chats': all_users,
@@ -69,8 +65,6 @@ def InboxSentView(request, msg_id):
 
     # makes a list of users that received msgs from request.user
     all_users = [i.receiver for i in msgs]
-
-    print(all_users)
 
     msg_data = msgs.get(id=msg_id)
 

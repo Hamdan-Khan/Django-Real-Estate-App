@@ -83,10 +83,10 @@
             <div style="display: flex; justify-content: space-between;">
               {% if is_owner %}
                 <h4>My Listings:</h4>
-                <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View Listings</a>
+                <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View all Listings</a>
               {% else %}
                 <h4>{% if profile.first_name %}{{profile.first_name}}{% endif %}'s  Listings:</h4>
-                <a href="{% url 'users:my_listings' %}" style="padding-right: 15px;">View Listings</a>
+                <a href="{% url 'users:other_profile_listings' profile.id %}" style="padding-right: 15px;">View all Listings</a>
               {% endif %}
             </div>
             <hr class="mb-4">
