@@ -45,6 +45,10 @@ def ListingContactView(request, listing_id):
     listing = Property.objects.get(id=listing_id)
     listing_title = listing.title[0:30] + "..."
 
+    l_type = "Rent"
+    if (listing.sale_type == 'Sell'):
+        l_type = "Buy"
+
     if request.method == "POST":
         form = PropertyContactForm(data=request.POST)
         if form.is_valid():
@@ -57,7 +61,7 @@ def ListingContactView(request, listing_id):
     else:
         form = PropertyContactForm()
 
-    return render(request, 'market/property_contact.html', {'title': listing_title, 'form': form})
+    return render(request, 'market/property_contact.html', {'title': listing_title, 'form': form, 'type': l_type})
 
 
 def BuyView(request):
