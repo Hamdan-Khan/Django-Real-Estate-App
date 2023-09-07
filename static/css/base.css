@@ -1,0 +1,52 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.no-underline {
+    text-decoration: none;
+    color: white;
+}
+
+.underlined-heading {
+    text-decoration: underline;
+
+}
+
+.nav-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.4s;
+}
+
+.nav-title:hover {
+    color: rgb(216, 216, 216);
+}
+
+.navbar-collapse {
+    flex-grow: 0;
+}
+
+/* Owner details on property page */
+
+.owner-p-pic {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.owner-p-desc {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .owner-p-desc {
+        align-items: center;
+    }
+
+    .owner-p-desc hr {
+        width: 100%;
+    }
+}

@@ -94,9 +94,7 @@
         </div>
       </div>
     </div>
-    <div>
-      <p>Owner : <a href="{% url 'users:other_profile' listing.owner.profile.id %}">{{listing.owner.profile.first_name}} {{listing.owner.profile.last_name}} </a></p>
-    </div>
+    
     {% if isOwner %}
       <a href="{% url 'users:edit_listing' listing.id %}" class="btn btn-warning">Edit Property</a>
       <button data-bs-toggle="modal" data-bs-target="#DeleteModal" class="btn btn-danger" >Delete Property</button>
@@ -123,8 +121,28 @@
     {% else %}
       <a href="{% url 'market:listing_contact' listing.id %}" class="btn btn-success">{{ type }} Property</a>
     {% endif %}
-
-    
+    <div style="margin-top:20px;">
+      <h2 class="underlined-heading">Owner's Profile:</h2>
+      <div class="card">
+        <div class="card-body">
+          <div class="row no-gutters">
+            <div class="col-md-3 owner-p-pic">
+              <div>
+                <img src="{% if listing.owner.profile_pic %}{{ listing.owner.profile_pic.url }}{% else %}https://static.vecteezy.com/system/resources/previews/014/554/760/original/man-profile-negative-photo-anonymous-silhouette-human-head-businessman-worker-support-illustration-vector.jpg{% endif %}" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              </div>
+            </div>
+            <div class="col-md-9 owner-p-desc">
+              <h4>{{listing.owner.profile.first_name}} {{listing.owner.profile.last_name}}</h4>
+              <hr />
+              <a class="btn btn-primary" role="button" href="{% url 'users:other_profile' listing.owner.profile.id %}">
+                View Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     
   </section>
   <script>

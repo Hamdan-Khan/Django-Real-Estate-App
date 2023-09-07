@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'market:listing' %}">Real Estate</a>
+      <a class="nav-title no-underline" href="{% url 'market:listing' %}">Real Estate</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,7 +23,7 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user }}
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu is-right">
                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'users:my_listings' %}">Your listings</a></li>
                 <li><a class="dropdown-item" style="color: red;" href="{% url 'users:logout' %}">Logout</a></li>
