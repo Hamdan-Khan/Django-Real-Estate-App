@@ -7,18 +7,62 @@
 <div>
     <h1>Add Property for Listing</h1>
     <hr>
-    <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <div class="form-group m-3">
-            <label>Upload image</label>
-            <input required name="images" type="file" multiple class="form-control-file">
-        </div>
-        <button type="submit" class="btn btn-success" >
-            {% if edit_mode %}Save Edits{% else %}Add Property{% endif %}
-        </button>
-    </form>
-    <hr>
+    <div class="card card-body">
+        <form method="post" enctype="multipart/form-data" class="form-flex">
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">{{form.title.label}}</label>
+                <input name={{ form.title.name}} type="text" class="form-control" id="{{ form.title.id_for_label }}"/>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.type.id_for_label }}" style="display: block;">{{form.type.label}}</label>
+                {{ form.type }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.sale_type.id_for_label }}" style="display: block;">{{form.sale_type.label}}</label>
+                {{ form.sale_type }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.address.id_for_label }}">{{form.address.label}}</label>
+                <input name={{ form.address.name}} type="text" class="form-control" id="{{ form.address.id_for_label }}"/>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">{{form.description.label}}</label>
+                <textarea class="form-control" id="{{ form.description.id_for_label }}" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">{{form.price.label}}</label>
+                <input name={{ form.price.name}} type="number" class="form-control" id="{{ form.price.id_for_label }}"/>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.size_unit.id_for_label }}" style="display: block;">{{form.size_unit.label}}</label>
+                {{ form.size_unit }}    
+            </div>
+            <div class="form-group">
+                <label for="{{ form.size.id_for_label }}">{{form.size.label}}</label>
+                <input name={{ form.size.name}} type="number" class="form-control" id="{{ form.size.id_for_label }}"/>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.province.id_for_label }}" style="display: block;">{{form.province.label}}</label>
+                {{ form.province }}    
+            </div>
+            <div class="form-group">
+                <label for="{{ form.city.id_for_label }}" style="display: block;">{{form.city.label}}</label>
+                {{ form.city }}    
+            </div>
+            <div class="form-group">
+                <label for="{{ form.area.id_for_label }}" style="display: block;">{{form.area.label}}</label>
+                {{ form.area }}    
+            </div>
+            {% csrf_token %}
+            <div class="form-group" >
+                <label style="display: block; margin-bottom: 8px">Upload image</label>
+                <input required name="images" type="file" multiple class="form-control-file">
+            </div>
+            <button type="submit" class="btn btn-success no-stretch" >
+                {% if edit_mode %}Save Edits{% else %}Add Property{% endif %}
+            </button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

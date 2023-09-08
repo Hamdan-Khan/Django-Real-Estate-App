@@ -16,9 +16,9 @@ def property_pic_path(instance, filename):
 
 class PropertyType(models.Model):
     PROPERTY_TYPE_CHOICES = [
-        ("Plot", "P"),
-        ("Shop", "S"),
-        ("House", "H"),
+        ("Plot", "Plot"),
+        ("Shop", "Shop"),
+        ("House", "House"),
     ]
     name = models.CharField(choices=PROPERTY_TYPE_CHOICES, max_length=40)
 
@@ -53,10 +53,10 @@ class Property(models.Model):
         ("Rent", "Rent"),
     ]
     PROVINCE_CHOICES = [
-        ("Sindh", "S"),
-        ("Punjab", "P"),
-        ("Balochistan", "B"),
-        ("KPK", "K"),
+        ("Sindh", "Sindh"),
+        ("Punjab", "Punjab"),
+        ("Balochistan", "Balochistan"),
+        ("KPK", "KPK"),
     ]
     title = models.CharField(max_length=300, blank=True, null=True)
     owner = models.ForeignKey(
@@ -82,7 +82,7 @@ class Property(models.Model):
         default=timezone.now, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.title if self.title else str(self.id)
 
 
 def validate_file_size(value):
