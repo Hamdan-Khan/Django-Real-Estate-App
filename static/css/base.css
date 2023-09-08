@@ -40,6 +40,16 @@ body {
     flex-direction: column;
 }
 
+.form-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.no-stretch {
+    max-width: max-content;
+}
+
 
 @media only screen and (max-width: 768px) {
     .owner-p-desc {

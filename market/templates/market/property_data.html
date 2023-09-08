@@ -84,16 +84,43 @@
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title">{{ listing.title }}</h5>
-                <p class="card-text">{{ listing.location }}</p>
-                <p class="card-text">Asking Price: <span class="text-muted">PKR. {{ listing.price }}</span></p>
-                <p class="card-text">Size: <span class="text-muted">{{ listing.size }} {{ listing.size_unit }}</span></p>
-                <div ><small class="text-muted">Added on: {{ listing.added_at }}</small></div>
+                <hr/>
+                <p>{{listing.description}}</p>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row">Asking Price</th>
+          <td><span class="text-muted">PKR. {{ listing.price }}</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Size</th>
+          <td>{{ listing.size }} {{ listing.size_unit }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Area</th>
+          <td>{{ listing.area }}</td>
+        </tr>
+        <tr>
+          <th scope="row">City</th>
+          <td>{{ listing.city }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Address</th>
+          <td>{{ listing.address }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Added on</th>
+          <td>{{ listing.added_at }}</td>
+        </tr>
+      </tbody>
+    </table>
     
     {% if isOwner %}
       <a href="{% url 'users:edit_listing' listing.id %}" class="btn btn-warning">Edit Property</a>

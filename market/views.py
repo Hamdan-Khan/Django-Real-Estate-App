@@ -61,7 +61,9 @@ def ListingContactView(request, listing_id):
     else:
         form = PropertyContactForm()
 
-    return render(request, 'market/property_contact.html', {'title': listing_title, 'form': form, 'type': l_type})
+    context = {'title': listing_title, 'form': form,
+               'type': l_type, 'listing': listing}
+    return render(request, 'market/property_contact.html', context)
 
 
 def BuyView(request):
