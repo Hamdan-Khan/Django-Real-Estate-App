@@ -108,6 +108,7 @@ def EditPropertyView(request, listing_id):
             return redirect("market:listing_data", listing_id)
     else:
         form = AddPropertyForm(instance=property_instance)
+        print(form)
     return render(request, 'users/add_property_form.html', {'form': form, 'edit_mode': True})
 
 

@@ -1,17 +1,17 @@
 {% extends 'market/base.html' %}
 
-{% block title %} Add Property for Listing {% endblock %}
+{% block title %} {% if edit_mode %}Edit Property {% else %}Add Property for Listing {% endif %}{% endblock %}
 
 {%block content %}
 
 <div>
-    <h1>Add Property for Listing</h1>
+    <h1>{% if edit_mode %}Edit Property {% else %}Add Property for Listing{% endif %}</h1>
     <hr>
     <div class="card card-body">
         <form method="post" enctype="multipart/form-data" class="form-flex">
             <div class="form-group">
                 <label for="{{ form.title.id_for_label }}">{{form.title.label}}</label>
-                <input name={{ form.title.name}} type="text" class="form-control" id="{{ form.title.id_for_label }}"/>
+                <input name={{ form.title.name}} type="text" class="form-control" id="{{ form.title.id_for_label }}" value="{% if edit_mode %}{{ form.title.value }}{% endif %}"/>
             </div>
             <div class="form-group">
                 <label for="{{ form.type.id_for_label }}" style="display: block;">{{form.type.label}}</label>
@@ -23,15 +23,15 @@
             </div>
             <div class="form-group">
                 <label for="{{ form.address.id_for_label }}">{{form.address.label}}</label>
-                <input name={{ form.address.name}} type="text" class="form-control" id="{{ form.address.id_for_label }}"/>
+                <input name={{ form.address.name}} type="text" class="form-control" id="{{ form.address.id_for_label }}" value="{% if edit_mode %}{{ form.address.value }}{% endif %}"/>
             </div>
             <div class="form-group">
                 <label for="{{ form.description.id_for_label }}">{{form.description.label}}</label>
-                <textarea class="form-control" id="{{ form.description.id_for_label }}" rows="4"></textarea>
+                <textarea class="form-control" id="{{ form.description.id_for_label }}" rows="4" >{% if edit_mode %}{{ form.description.value }}{% endif %}</textarea>
             </div>
             <div class="form-group">
                 <label for="{{ form.price.id_for_label }}">{{form.price.label}}</label>
-                <input name={{ form.price.name}} type="number" class="form-control" id="{{ form.price.id_for_label }}"/>
+                <input name={{ form.price.name}} type="number" class="form-control" id="{{ form.price.id_for_label }}" value="{% if edit_mode %}{{ form.price.value }}{% endif %}"/>
             </div>
             <div class="form-group">
                 <label for="{{ form.size_unit.id_for_label }}" style="display: block;">{{form.size_unit.label}}</label>
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label for="{{ form.size.id_for_label }}">{{form.size.label}}</label>
-                <input name={{ form.size.name}} type="number" class="form-control" id="{{ form.size.id_for_label }}"/>
+                <input name={{ form.size.name}} type="number" class="form-control" id="{{ form.size.id_for_label }}" value="{% if edit_mode %}{{ form.size.value }}{% endif %}"/>
             </div>
             <div class="form-group">
                 <label for="{{ form.province.id_for_label }}" style="display: block;">{{form.province.label}}</label>

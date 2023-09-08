@@ -43,6 +43,8 @@ def ListingDataView(request, listing_id):
 
 def ListingContactView(request, listing_id):
     listing = Property.objects.get(id=listing_id)
+    if (request.user == listing.owner):
+        return render(request, 'market/404.html')
     listing_title = listing.title[0:30] + "..."
 
     l_type = "Rent"
