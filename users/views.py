@@ -120,11 +120,12 @@ def DeleteListingView(request, listing_id):
     return redirect("users:my_listings")
 
 
-# other users' profile view
+# other users profile view
 def OtherProfileView(request, profile_id):
-    # logged in user will be redirected to his own profile
-    if request.user.profile.id == profile_id:
-        return redirect("users:profile")
+    # checks if user is logged in and if request is of the user that is logged in, he will be redirected to his own profile
+    if request.user.id != None:
+        if request.user.profile.id == profile_id:
+            return redirect("users:profile")
     else:
         profile = Profile.objects.get(id=profile_id)
         custom_user = profile.user
