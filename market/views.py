@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Property, PropertyType
 from .forms import PropertyContactForm
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 
 def ListingsView(request):
@@ -41,6 +42,7 @@ def ListingDataView(request, listing_id):
     return render(request, 'market/property_data.html', {'listing': listing, 'title': listing_title, 'type': l_type, 'isOwner': is_owner})
 
 
+@login_required
 def ListingContactView(request, listing_id):
     listing = Property.objects.get(id=listing_id)
     if (request.user == listing.owner):

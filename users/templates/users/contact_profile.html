@@ -7,11 +7,25 @@
 <main>
     <h1>Contact {{profile.first_name}}</h1>
     <hr/>
-    <form method="post" class="card col-md-8 p-4">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <div class="mb-4">
-            <label class="mb-2">Select a listing reference:</label>
+    <form method="post" class="card col-md-9 form-flex p-4">
+        <div class="form-group">
+            <label for="{{ form.sender_name.id_for_label }}">{{form.sender_name.label}}</label>
+            <input type="text" class="form-control" id="{{ form.sender_name.id_for_label }}"/>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.sender_email.id_for_label }}">{{form.sender_email.label}}</label>
+            <input type="email" class="form-control" id="{{ form.sender_email.id_for_label }}"/>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.sender_number.id_for_label }}">{{form.sender_number.label}}</label>
+            <input type="text" class="form-control" id="{{ form.sender_number.id_for_label }}"/>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.message_text.id_for_label }}">{{form.message_text.label}}</label>
+            <textarea class="form-control" id="{{ form.message_text.id_for_label }}" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="mb-2">Select a listing reference (optional):</label>
             <select name="selected_listing" class="form-control">
                 <option value='none'>I do not want to give listing reference</option>
                 {% for listing in listings %}
@@ -19,7 +33,8 @@
                 {% endfor %}
             </select>
         </div>
-        <input role="button" type="submit" class="btn btn-success" value="Send Message">
+        {% csrf_token %}
+        <input role="button" type="submit" class="btn btn-success no-stretch" value="Send Message">
     </form>
     <hr/>
 </main>

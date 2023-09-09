@@ -124,3 +124,6 @@ MEDIA_URL = "/media/"
 
 # custom user
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# custom login url
+LOGIN_URL = "users:login"

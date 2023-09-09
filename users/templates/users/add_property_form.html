@@ -1,6 +1,6 @@
 {% extends 'market/base.html' %}
 
-{% block title %} {% if edit_mode %}Edit Property {% else %}Add Property for Listing {% endif %}{% endblock %}
+{% block title %} {% if edit_mode %}Edit Property {% else %}Add Property for Listing {% endif %} - Rehaaish.com{% endblock %}
 
 {%block content %}
 
@@ -14,11 +14,11 @@
                 <input name={{ form.title.name}} type="text" class="form-control" id="{{ form.title.id_for_label }}" value="{% if edit_mode %}{{ form.title.value }}{% endif %}"/>
             </div>
             <div class="form-group">
-                <label for="{{ form.type.id_for_label }}" style="display: block;">{{form.type.label}}</label>
+                <label for="{{ form.type.id_for_label }}" class="block">{{form.type.label}}</label>
                 {{ form.type }}
             </div>
             <div class="form-group">
-                <label for="{{ form.sale_type.id_for_label }}" style="display: block;">{{form.sale_type.label}}</label>
+                <label for="{{ form.sale_type.id_for_label }}" class="block">{{form.sale_type.label}}</label>
                 {{ form.sale_type }}
             </div>
             <div class="form-group">
@@ -34,7 +34,7 @@
                 <input name={{ form.price.name}} type="number" class="form-control" id="{{ form.price.id_for_label }}" value="{% if edit_mode %}{{ form.price.value }}{% endif %}"/>
             </div>
             <div class="form-group">
-                <label for="{{ form.size_unit.id_for_label }}" style="display: block;">{{form.size_unit.label}}</label>
+                <label for="{{ form.size_unit.id_for_label }}" class="block">{{form.size_unit.label}}</label>
                 {{ form.size_unit }}    
             </div>
             <div class="form-group">
@@ -42,20 +42,20 @@
                 <input name={{ form.size.name}} type="number" class="form-control" id="{{ form.size.id_for_label }}" value="{% if edit_mode %}{{ form.size.value }}{% endif %}"/>
             </div>
             <div class="form-group">
-                <label for="{{ form.province.id_for_label }}" style="display: block;">{{form.province.label}}</label>
+                <label for="{{ form.province.id_for_label }}" class="block">{{form.province.label}}</label>
                 {{ form.province }}    
             </div>
             <div class="form-group">
-                <label for="{{ form.city.id_for_label }}" style="display: block;">{{form.city.label}}</label>
+                <label for="{{ form.city.id_for_label }}" class="block">{{form.city.label}}</label>
                 {{ form.city }}    
             </div>
             <div class="form-group">
-                <label for="{{ form.area.id_for_label }}" style="display: block;">{{form.area.label}}</label>
+                <label for="{{ form.area.id_for_label }}" class="block">{{form.area.label}}</label>
                 {{ form.area }}    
             </div>
             {% csrf_token %}
             <div class="form-group" >
-                <label style="display: block; margin-bottom: 8px">Upload image</label>
+                <label style="margin-bottom: 8px" class="block">Upload image</label>
                 <input required name="images" type="file" multiple class="form-control-file">
             </div>
             <button type="submit" class="btn btn-success no-stretch" >
