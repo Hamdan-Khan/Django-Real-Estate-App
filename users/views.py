@@ -122,7 +122,7 @@ def DeleteListingView(request, listing_id):
 # other users profile view
 def OtherProfileView(request, profile_id):
     # checks if user is logged in and if request is of the user that is logged in, he will be redirected to his own profile
-    if request.user.id != None:
+    if request.user.id:
         if request.user.profile.id == profile_id:
             return redirect("users:profile")
     else:
@@ -138,6 +138,7 @@ def OtherProfileView(request, profile_id):
 
 
 # contact through profile
+@login_required
 def ContactProfileView(request, profile_id):
     receiver_profile = Profile.objects.get(id=profile_id)
     listings = Property.objects.filter(owner=receiver_profile.user)

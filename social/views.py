@@ -3,43 +3,34 @@ from .models import Message
 from django.contrib.auth.decorators import login_required
 
 
+# basic landing view of inbox page with list of received msgs
 @login_required
 def InboxView(request):
-    # retrieves only those msgs in which request.user is present either as sender or receiver
-    # msgs = Message.objects.filter(
-    #     Q(sender=request.user) | Q(receiver=request.user))
+    # retrieves only those msgs in which request.user is present as receiver
     msgs = Message.objects.filter(receiver=request.user).order_by("-sent_at")
 
-    # makes a list of distinct users with which the request.user has interacted through msgs
-    # all_users = list(set([i.sender for i in msgs] +
-    #                  [i.receiver for i in msgs]))
-    all_users = [i.sender for i in msgs]
-
     context = {
-        'chats': all_users,
         'msgs': msgs,
     }
     return render(request, 'social/inbox.html', context)
 
 
+# detailed view of received msg
 @login_required
 def InboxReceivedView(request, msg_id):
     # retrieves only those msgs in which request.user is present as receiver
     msgs = Message.objects.filter(receiver=request.user).order_by("-sent_at")
 
-    # makes a list of users that sent request.user msgs
-    all_users = [i.sender for i in msgs]
-
     msg_data = msgs.get(id=msg_id)
 
     context = {
-        'chats': all_users,
         'msgs': msgs,
         'msg_data': msg_data
     }
     return render(request, 'social/inbox.html', context)
 
 
+# view of sent msgs which redirects to the latest sent msg detail if present, else it will display a text msg.
 @login_required
 def InboxSentRedirectView(request):
     # retrieves only those msgs in which request.user is present as sender
@@ -56,6 +47,8 @@ def InboxSentRedirectView(request):
             'none_sent_text': "Oops! It seems you have not sent any messages. You can visit the properties listed on our site and inquire owners about the property."
         }
         return render(request, 'social/inbox.html', context)
+
+# view redirected from the sent msgs page, shows detail of sent msg
 
 
 @login_required

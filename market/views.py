@@ -5,11 +5,13 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 
+# all listings view on the home page
 def ListingsView(request):
     all_listings = Property.objects.all().order_by('-added_at')
     return render(request, 'market/home.html', {'listings': all_listings})
 
 
+# listings view based on the type (house, shop, plot)
 def TypesListingsView(request, property_type):
     # Get the PropertyType instance based on the property_type string
     property_type = property_type.capitalize()
@@ -27,6 +29,7 @@ def TypesListingsView(request, property_type):
     return render(request, 'market/property_type_listing.html', {'listings': listings, 'type': property_type, 'quantity': quantity})
 
 
+# listings detail view
 def ListingDataView(request, listing_id):
     listing = Property.objects.get(id=listing_id)
     listing_title = listing.title[0:30] + "..."
@@ -42,6 +45,7 @@ def ListingDataView(request, listing_id):
     return render(request, 'market/property_data.html', {'listing': listing, 'title': listing_title, 'type': l_type, 'isOwner': is_owner})
 
 
+# contact user on the basis of listing
 @login_required
 def ListingContactView(request, listing_id):
     listing = Property.objects.get(id=listing_id)
@@ -70,6 +74,7 @@ def ListingContactView(request, listing_id):
     return render(request, 'market/property_contact.html', context)
 
 
+# listings view on the basis of sale_type: buy
 def BuyView(request):
     listings = Property.objects.filter(sale_type="Sell").order_by("-added_at")
     quantity = listings.count()
@@ -79,6 +84,7 @@ def BuyView(request):
     return render(request, 'market/buy.html', {'listings': listings, 'property_noun': property_noun, 'quantity': quantity})
 
 
+# listings view on the basis of sale_type: rent
 def RentView(request):
     listings = Property.objects.filter(sale_type="Rent").order_by("-added_at")
     quantity = listings.count()
