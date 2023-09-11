@@ -23,7 +23,7 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user }}
               </a>
-              <ul class="dropdown-menu is-right">
+              <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'users:my_listings' %}">Your listings</a></li>
                 <li><a class="dropdown-item" style="color: red;" href="{% url 'users:logout' %}">Logout</a></li>

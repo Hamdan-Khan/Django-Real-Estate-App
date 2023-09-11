@@ -46,7 +46,6 @@ def ProfileView(request):
 
 @login_required
 def EditProfileView(request):
-    # user_instance = CustomUser.objects.get(id=request.user.id)
     profile_instance = request.user.profile
 
     if request.method == 'POST':
@@ -58,7 +57,7 @@ def EditProfileView(request):
     else:
         profile_form = ProfileChangeForm(instance=profile_instance)
 
-    return render(request, "users/edit_profile.html", {'form2': profile_form, })
+    return render(request, "users/edit_profile.html", {'form': profile_form, })
 
 
 @login_required

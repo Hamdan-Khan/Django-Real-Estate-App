@@ -98,7 +98,9 @@
                     </div>
                     <div class="col-md-8">
                       <div class="card-body">
-                        <a href="{% url 'market:listing_data' listing.id %}" ><h5 class="card-title" style="text-decoration: none;">{{ listing.title }}</h5></a>
+                        <a href="{% url 'market:listing_data' listing.id %}" class="listing-title">
+                          <h5 class="card-title">{{ listing.title }}</h5>
+                        </a>
                         <p class="card-text">{{ listing.location }}</p>
                         <p class="card-text">Asking Price: <span class="text-muted">PKR. {{ listing.price }}</span></p>
                         <p class="card-text">Size: <span class="text-muted">{{ listing.size }} {{ listing.size_unit }}</span></p>
