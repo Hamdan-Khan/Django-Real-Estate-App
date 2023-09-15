@@ -125,16 +125,16 @@ def OtherProfileView(request, profile_id):
     if request.user.id:
         if request.user.profile.id == profile_id:
             return redirect("users:profile")
-    else:
-        profile = Profile.objects.get(id=profile_id)
-        custom_user = profile.user
 
-        listings = Property.objects.filter(
-            owner=custom_user).order_by("-added_at")
+    profile = Profile.objects.get(id=profile_id)
+    custom_user = profile.user
 
-        listings = listings[:3]
+    listings = Property.objects.filter(
+        owner=custom_user).order_by("-added_at")
 
-        return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
+    listings = listings[:3]
+
+    return render(request, "users/profile.html", {'profile': profile, 'c_user': custom_user, 'listings': listings})
 
 
 # contact through profile
