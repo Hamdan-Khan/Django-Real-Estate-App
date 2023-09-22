@@ -13,19 +13,19 @@
         <form method="post" class="form-flex">
             <div class="form-group">
               <label for="{{ form.sender_name.id_for_label }}">{{form.sender_name.label}}</label>
-              <input type="text" class="form-control" id="{{ form.sender_name.id_for_label }}"/>
+              <input name="{{form.sender_name.name}}" type="text" class="form-control" id="{{ form.sender_name.id_for_label }}"/>
             </div>
             <div class="form-group">
               <label for="{{ form.sender_email.id_for_label }}">{{form.sender_email.label}}</label>
-              <input type="email" class="form-control" id="{{ form.sender_email.id_for_label }}"/>
+              <input name="{{form.sender_email.name}}" type="email" class="form-control" id="{{ form.sender_email.id_for_label }}"/>
             </div>
             <div class="form-group">
               <label for="{{ form.sender_number.id_for_label }}">{{form.sender_number.label}}</label>
-              <input type="text" class="form-control" id="{{ form.sender_number.id_for_label }}"/>
+              <input name="{{form.sender_number.name}}" type="text" class="form-control" id="{{ form.sender_number.id_for_label }}"/>
             </div>
             <div class="form-group">
               <label for="{{ form.message_text.id_for_label }}">{{form.message_text.label}}</label>
-              <textarea class="form-control" id="{{ form.message_text.id_for_label }}" rows="4"></textarea>
+              <textarea name="{{form.message_text.name}}" class="form-control" id="{{ form.message_text.id_for_label }}" rows="4"></textarea>
             </div>
             {% csrf_token %}
             <button type="submit" class="btn btn-success no-stretch">Send message</button>
